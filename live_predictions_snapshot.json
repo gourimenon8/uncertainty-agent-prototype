@@ -1,0 +1,130 @@
+{
+  "540816": {
+    "question": "Russia-Ukraine Ceasefire before GTA VI?",
+    "first_seen": "2026-04-27T07:53:50.576850",
+    "market_prob": 0.52,
+    "p_hat": 0.1,
+    "mismatch": 0.18846124959416005,
+    "action": "MONITOR"
+  },
+  "540817": {
+    "question": "New Rihanna Album before GTA VI?",
+    "first_seen": "2026-04-27T15:16:49.947359",
+    "market_prob": 0.535,
+    "p_hat": 0.5125,
+    "mismatch": 0.3569045009026615,
+    "action": "INVESTIGATE"
+  },
+  "540818": {
+    "question": "New Playboi Carti Album before GTA VI?",
+    "first_seen": "2026-04-27T15:16:49.947359",
+    "market_prob": 0.53,
+    "p_hat": 0.6599999999999999,
+    "mismatch": 0.3543149124287817,
+    "action": "INVESTIGATE"
+  },
+  "540819": {
+    "question": "Will Jesus Christ return before GTA VI?",
+    "first_seen": "2026-04-27T15:16:49.947359",
+    "market_prob": 0.48,
+    "p_hat": 0.060000000000000005,
+    "mismatch": null,
+    "action": null
+  },
+  "540820": {
+    "question": "Trump out as President before GTA VI?",
+    "first_seen": "2026-04-27T15:16:49.947359",
+    "market_prob": 0.52,
+    "p_hat": 0.4,
+    "mismatch": null,
+    "action": null
+  },
+  "540843": {
+    "question": "Will China invades Taiwan before GTA VI?",
+    "first_seen": "2026-04-27T15:16:49.947359",
+    "market_prob": 0.51,
+    "p_hat": 0.395,
+    "mismatch": 0.37097606201074096,
+    "action": "INVESTIGATE"
+  },
+  "540844": {
+    "question": "Will bitcoin hit $1m before GTA VI?",
+    "first_seen": "2026-04-27T15:16:49.947359",
+    "market_prob": 0.4905,
+    "p_hat": 0.315,
+    "mismatch": 0.39991420429898095,
+    "action": "INVESTIGATE"
+  },
+  "553828": {
+    "question": "Will the Colorado Avalanche win the 2026 NHL Stanley Cup?",
+    "first_seen": "2026-04-27T15:16:49.947359",
+    "market_prob": 0.278,
+    "p_hat": 0.395,
+    "mismatch": 0.6026,
+    "action": "INVESTIGATE"
+  },
+  "556062": {
+    "question": "MegaETH market cap (FDV) >$2B one day after launch?",
+    "first_seen": "2026-04-27T15:16:49.947359",
+    "market_prob": 0.26,
+    "p_hat": 0.3433333333333333,
+    "mismatch": 0.6023908478952709,
+    "action": "INVESTIGATE"
+  },
+  "556063": {
+    "question": "MegaETH market cap (FDV) >$6B one day after launch?",
+    "first_seen": "2026-04-27T15:16:49.947359",
+    "market_prob": 0.0135,
+    "p_hat": 0.04,
+    "mismatch": 0.5190374791246107,
+    "action": "INVESTIGATE"
+  },
+  "556108": {
+    "question": "Will MegaETH perform an airdrop by June 30? ",
+    "first_seen": "2026-04-27T15:16:49.947359",
+    "market_prob": 0.6245,
+    "p_hat": 0.2733333333333333,
+    "mismatch": 0.4415242717757329,
+    "action": "INVESTIGATE"
+  },
+  "558941": {
+    "question": "Will Netherlands win the 2026 FIFA World Cup?",
+    "first_seen": "2026-04-27T15:16:49.947359",
+    "market_prob": 0.034,
+    "p_hat": 0.0475,
+    "mismatch": 0.5586726415094341,
+    "action": "INVESTIGATE"
+  },
+  "540881": {
+    "question": "GTA VI released before June 2026?",
+    "first_seen": "2026-04-28T11:27:28.961601",
+    "market_prob": 0.0245,
+    "p_hat": 0.25,
+    "mismatch": 0.6808874213836478,
+    "action": "INVESTIGATE"
+  },
+  "558952": {
+    "question": "Will Canada win the 2026 FIFA World Cup?",
+    "first_seen": "2026-04-28T11:53:43.837751",
+    "market_prob": 0.4995,
+    "p_hat": 0.02666666666666667,
+    "mismatch": 0.07755408805031438,
+    "action": "PASS"
+  },
+  "558954": {
+    "question": "Will Tunisia win the 2026 FIFA World Cup?",
+    "first_seen": "2026-04-28T11:53:43.837751",
+    "market_prob": 0.4995,
+    "p_hat": 0.025,
+    "mismatch": 0.07588742138364779,
+    "action": "PASS"
+  },
+  "561264": {
+    "question": "Will Pete Hegseth win the 2028 US Presidential Election?",
+    "first_seen": "2026-04-28T12:23:28.752384",
+    "market_prob": 0.501,
+    "p_hat": 0.01,
+    "mismatch": 0.03873048544602009,
+    "action": "PASS"
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "n_markets": 2,
+  "n_investigate": 2,
+  "brier_model": 0.05973888888888889,
+  "brier_market": 0.033891125,
+  "brier_constant": 0.25,
+  "beats_market": false,
+  "beats_constant": true,
+  "brier_improvement": -0.0258,
+  "mismatch_corr": 1.0,
+  "fade_roi": 0.13674999999999998,
+  "fade_win_rate": 1.0,
+  "n_bets": 2,
+  "statistical_tests": {},
+  "investigate_markets": [
+    {
+      "question": "MegaETH market cap (FDV) >$2B one day after launch?",
+      "market_prob": 0.26,
+      "p_hat": 0.3433333333333333,
+      "outcome": 0,
+      "mismatch": 0.6023908478952709,
+      "payoff": 0.26
+    },
+    {
+      "question": "MegaETH market cap (FDV) >$6B one day after launch?",
+      "market_prob": 0.0135,
+      "p_hat": 0.04,
+      "outcome": 0,
+      "mismatch": 0.5190374791246107,
+      "payoff": 0.013499999999999956
+    }
+  ]
+}

@@ -1,0 +1,55 @@
+{
+  "n_markets": 40,
+  "alpha": 0.1,
+  "empirical_coverage": 1.0,
+  "target_coverage": 0.9,
+  "mean_ci_width": 0.9984279661016948,
+  "brier_market": 0.25,
+  "brier_model": 0.24104923611111112,
+  "brier_improvement": 0.00895076388888888,
+  "corr_mismatch_vs_market_error": NaN,
+  "mismatch_quartile_stats": {
+    "Q1_low_mismatch": {
+      "n": 10,
+      "mean_mismatch": 0.17339997953844216,
+      "mean_market_error": 0.5,
+      "mean_model_error": 0.4485000000000001,
+      "mean_ci_width": 0.9937118644067796,
+      "coverage": 1.0
+    },
+    "Q2": {
+      "n": 10,
+      "mean_mismatch": 0.20136579995968518,
+      "mean_market_error": 0.5,
+      "mean_model_error": 0.41866666666666663,
+      "mean_ci_width": 1.0,
+      "coverage": 1.0
+    },
+    "Q3": {
+      "n": 10,
+      "mean_mismatch": 0.2290530735377867,
+      "mean_market_error": 0.5,
+      "mean_model_error": 0.5509999999999999,
+      "mean_ci_width": 1.0,
+      "coverage": 1.0
+    },
+    "Q4_high_mismatch": {
+      "n": 10,
+      "mean_mismatch": 0.27768060903162156,
+      "mean_market_error": 0.5,
+      "mean_model_error": 0.417,
+      "mean_ci_width": 1.0,
+      "coverage": 1.0
+    }
+  },
+  "fade_roi": 0.2777777777777778,
+  "investigate_count": 9,
+  "investigate_win_rate": 0.7777777777777778,
+  "timestamp": "2026-04-30T00:05:47.438457",
+  "brier_decomposition": {
+    "reliability": 0.01924425066137566,
+    "resolution": 0.01949404761904762,
+    "uncertainty": 0.24437499999999998,
+    "check": 0.24412520304232802
+  }
+}

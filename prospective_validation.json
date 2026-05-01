@@ -1,0 +1,37 @@
+{
+  "validation_event": "MegaETH token launch",
+  "date": "2026-04-30",
+  "recorded_at": "2026-04-30T23:03:40.850004",
+  "markets": [
+    {
+      "question": "MegaETH market cap (FDV) >2B one day after launch",
+      "agent_p_hat": 0.15,
+      "agent_signal": "NO / INVESTIGATE",
+      "market_prob_at_prediction": 0.26,
+      "actual_fdv_at_launch": 1600000000,
+      "resolved": "NO",
+      "agent_correct": true,
+      "notes": "FDV was 1.6B at launch, well below 2B threshold"
+    },
+    {
+      "question": "MegaETH market cap (FDV) >6B one day after launch",
+      "agent_p_hat": 0.073,
+      "agent_signal": "INVESTIGATE",
+      "market_prob_at_prediction": 0.013,
+      "actual_fdv_at_launch": 1600000000,
+      "resolved": "NO",
+      "agent_correct": true,
+      "notes": "Both agent and market agreed NO, resolved NO"
+    },
+    {
+      "question": "Will MegaETH perform an airdrop by June 30",
+      "agent_p_hat": 0.22,
+      "agent_signal": "NO / INVESTIGATE",
+      "market_prob_at_prediction": 0.625,
+      "actual_fdv_at_launch": null,
+      "resolved": "PENDING",
+      "agent_correct": null,
+      "notes": "Airdrop appears to be happening - may resolve YES against agent prediction"
+    }
+  ]
+}
