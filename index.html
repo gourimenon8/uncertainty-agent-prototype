@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Uncertainty Agent — Prediction Market Intelligence</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap');
+:root{--bg:#0a0a0f;--bg2:#111118;--bg3:#1a1a24;--border:rgba(255,255,255,0.07);--border2:rgba(255,255,255,0.12);--text:#e8e8f0;--text2:#9090a8;--text3:#5a5a72;--purple:#8b6fff;--purple2:#6448e8;--teal:#2dd4bf;--coral:#ff6b6b;--amber:#fbbf24;--green:#4ade80}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(139,111,255,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(139,111,255,0.03) 1px,transparent 1px);background-size:40px 40px;pointer-events:none;z-index:0}
+body::after{content:'';position:fixed;top:-200px;left:50%;transform:translateX(-50%);width:800px;height:600px;background:radial-gradient(ellipse,rgba(139,111,255,0.08) 0%,transparent 70%);pointer-events:none;z-index:0}
+.wrap{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:0 24px}
+header{padding:32px 0 24px;display:flex;align-items:flex-end;justify-content:space-between;border-bottom:1px solid var(--border);margin-bottom:32px}
+.logo{display:flex;align-items:center;gap:12px}
+.logo-mark{width:36px;height:36px;border:1.5px solid var(--purple);border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:16px;color:var(--purple)}
+.logo-text h1{font-family:'Instrument Serif',serif;font-size:20px;font-weight:400}
+.logo-text p{font-size:11px;color:var(--text3);letter-spacing:.06em;text-transform:uppercase;margin-top:1px}
+.header-right{display:flex;align-items:center;gap:16px}
+.updated-pill{font-family:'DM Mono',monospace;font-size:11px;color:var(--text3);padding:5px 12px;background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:20px}
+.stat-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:28px}
+.stat{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:16px 18px;position:relative;overflow:hidden}
+.stat::before{content:'';position:absolute;top:0;left:0;right:0;height:1px}
+.stat.purple::before{background:linear-gradient(90deg,transparent,var(--purple),transparent)}
+.stat.teal::before{background:linear-gradient(90deg,transparent,var(--teal),transparent)}
+.stat.coral::before{background:linear-gradient(90deg,transparent,var(--coral),transparent)}
+.stat.amber::before{background:linear-gradient(90deg,transparent,var(--amber),transparent)}
+.stat-label{font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--text3);margin-bottom:8px}
+.stat-value{font-family:'Instrument Serif',serif;font-size:32px;line-height:1;margin-bottom:4px}
+.stat.purple .stat-value{color:var(--purple)}.stat.teal .stat-value{color:var(--teal)}.stat.coral .stat-value{color:var(--coral)}.stat.amber .stat-value{color:var(--amber)}
+.stat-sub{font-size:11px;color:var(--text3)}
+.tabs{display:flex;gap:4px;margin-bottom:20px;border-bottom:1px solid var(--border);padding-bottom:0}
+.tab{padding:10px 16px;font-size:12px;color:var(--text3);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:color .15s,border-color .15s}
+.tab:hover{color:var(--text2)}.tab.active{color:var(--purple);border-color:var(--purple)}
+.tab-content{display:none}.tab-content.active{display:block}
+.main-grid{display:grid;grid-template-columns:1fr 300px;gap:16px;margin-bottom:16px}
+.panel{background:var(--bg2);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:16px}
+.panel-header{padding:14px 18px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.panel-title{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--text2)}
+.panel-badge{font-family:'DM Mono',monospace;font-size:10px;padding:2px 8px;border-radius:4px;background:rgba(255,255,255,0.05);color:var(--text3)}
+.market-list{padding:8px}
+.market-card{background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:14px 16px;margin-bottom:8px}
+.market-card:last-child{margin-bottom:0}
+.market-card.investigate{border-left:2px solid var(--coral)}.market-card.monitor{border-left:2px solid var(--amber)}.market-card.pass{border-left:2px solid var(--border)}
+.market-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:12px}
+.market-question{font-size:13px;line-height:1.5;flex:1}
+.action-badge{font-size:9px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;padding:3px 8px;border-radius:4px;white-space:nowrap;flex-shrink:0}
+.action-badge.investigate{background:rgba(255,107,107,0.12);color:var(--coral);border:1px solid rgba(255,107,107,0.2)}
+.action-badge.monitor{background:rgba(251,191,36,0.12);color:var(--amber);border:1px solid rgba(251,191,36,0.2)}
+.action-badge.pass{background:rgba(255,255,255,0.04);color:var(--text3);border:1px solid var(--border)}
+.prob-row{display:grid;grid-template-columns:60px 1fr 44px;gap:8px;align-items:center;margin-bottom:6px}
+.prob-label{font-size:10px;color:var(--text3);font-family:'DM Mono',monospace}
+.prob-bar-wrap{height:4px;background:rgba(255,255,255,0.06);border-radius:2px;overflow:hidden}
+.prob-bar{height:100%;border-radius:2px;transition:width .8s cubic-bezier(.4,0,.2,1)}
+.prob-bar.market{background:rgba(144,144,168,0.5)}.prob-bar.model{background:var(--purple)}.prob-bar.ci{background:rgba(139,111,255,0.2)}
+.prob-val{font-family:'DM Mono',monospace;font-size:10px;color:var(--text2);text-align:right}
+.market-footer{display:flex;align-items:center;justify-content:space-between;margin-top:10px;padding-top:10px;border-top:1px solid var(--border)}
+.mismatch-score{font-family:'DM Mono',monospace;font-size:11px}
+.mis-lbl{color:var(--text3);margin-right:4px}.mis-val{color:var(--text)}
+.kelly-info{font-family:'DM Mono',monospace;font-size:10px;color:var(--text3)}
+.kelly-dir{color:var(--teal);margin-left:4px}
+.sigma-badge{font-size:9px;font-family:'DM Mono',monospace;padding:2px 6px;border-radius:4px}
+.sigma-badge.low{background:rgba(74,222,128,0.08);color:var(--green)}.sigma-badge.medium{background:rgba(251,191,36,0.08);color:var(--amber)}.sigma-badge.high{background:rgba(255,107,107,0.08);color:var(--coral)}
+.sidebar{display:flex;flex-direction:column;gap:16px}
+.calib-body,.val-body{padding:14px}
+.calib-labels{display:flex;justify-content:space-between;font-size:11px;color:var(--text3);margin-bottom:6px}
+.calib-val{color:var(--purple);font-family:'DM Mono',monospace}
+.calib-meter{height:5px;background:rgba(255,255,255,0.06);border-radius:3px;margin-bottom:12px;overflow:hidden}
+.calib-fill{height:100%;border-radius:3px;background:linear-gradient(90deg,var(--purple2),var(--purple))}
+.calib-row{display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid var(--border);font-size:12px}
+.calib-row:last-child{border:none}
+.calib-key{color:var(--text3)}.calib-v{font-family:'DM Mono',monospace;color:var(--text2)}
+.val-item{display:flex;align-items:flex-start;gap:10px;padding:9px;background:var(--bg3);border-radius:8px;margin-bottom:6px;border:1px solid var(--border)}
+.val-item:last-child{margin-bottom:0}
+.val-icon{width:24px;height:24px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0}
+.val-icon.correct{background:rgba(74,222,128,0.12)}.val-icon.pending{background:rgba(251,191,36,0.12)}.val-icon.wrong{background:rgba(255,107,107,0.12)}
+.val-q{font-size:11px;color:var(--text2);line-height:1.4;margin-bottom:3px}
+.val-nums{display:flex;gap:6px;font-family:'DM Mono',monospace;font-size:10px;flex-wrap:wrap}
+.sig-row{display:flex;align-items:center;gap:12px;padding:10px 14px;border-bottom:1px solid var(--border);font-size:12px}
+.sig-row:last-child{border:none}
+.sig-n{font-family:'DM Mono',monospace;font-size:10px;color:var(--text3);width:32px;flex-shrink:0}
+.sig-q{flex:1;color:var(--text2);line-height:1.4}
+.sig-mis{font-family:'DM Mono',monospace;font-size:11px;width:52px;text-align:right}
+.arch-step{display:flex;align-items:flex-start;gap:12px;padding:10px 14px;border-bottom:1px solid var(--border)}
+.arch-step:last-child{border:none}
+.arch-num{width:22px;height:22px;border-radius:5px;background:rgba(139,111,255,0.15);color:var(--purple);font-family:'DM Mono',monospace;font-size:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.arch-name{font-size:12px;font-weight:500;margin-bottom:2px}
+.arch-desc{font-size:11px;color:var(--text3)}
+.empty{padding:24px;text-align:center;color:var(--text3);font-size:12px;font-family:'DM Mono',monospace}
+footer{border-top:1px solid var(--border);padding:20px 0;display:flex;align-items:center;justify-content:space-between;margin-top:8px}
+.footer-left{font-size:11px;color:var(--text3)}.footer-left span{color:var(--text2)}
+.footer-right{display:flex;gap:12px;font-size:10px;font-family:'DM Mono',monospace;color:var(--text3)}
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.fade{animation:fadeUp .35s ease both}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="logo">
+    <div class="logo-mark">σ</div>
+    <div class="logo-text">
+      <h1>Uncertainty Agent</h1>
+      <p>Prediction Market Intelligence</p>
+    </div>
+  </div>
+  <div class="header-right">
+    <div class="updated-pill" id="updated-time">Loading...</div>
+  </div>
+</header>
+
+<div class="stat-strip">
+  <div class="stat purple"><div class="stat-label">Markets Monitored</div><div class="stat-value" id="s-markets">—</div><div class="stat-sub" id="s-markets-sub">crypto markets</div></div>
+  <div class="stat coral"><div class="stat-label">Investigate Signals</div><div class="stat-value" id="s-investigate">—</div><div class="stat-sub">crowd overconfident</div></div>
+  <div class="stat teal"><div class="stat-label">Prospective Hit Rate</div><div class="stat-value" id="s-hitrate">2/2</div><div class="stat-sub" id="s-hitrate-sub">resolved markets</div></div>
+  <div class="stat amber"><div class="stat-label">Fade ROI</div><div class="stat-value" id="s-roi">+13.7%</div><div class="stat-sub" id="s-roi-sub">mean per resolved bet</div></div>
+</div>
+
+<!-- Tabs -->
+<div class="tabs">
+  <div class="tab active" onclick="showTab('live')">Live Signals</div>
+  <div class="tab" onclick="showTab('consistency')">Signal Consistency</div>
+  <div class="tab" onclick="showTab('validation')">Prospective Validation</div>
+  <div class="tab" onclick="showTab('architecture')">How It Works</div>
+</div>
+
+<!-- Tab: Live Signals -->
+<div class="tab-content active" id="tab-live">
+  <div class="main-grid">
+    <div class="panel">
+      <div class="panel-header">
+        <span class="panel-title">Latest Sweep — Market Signals</span>
+        <span class="panel-badge" id="market-badge">sorted by mismatch ↓</span>
+      </div>
+      <div class="market-list" id="market-list">
+        <div class="empty">Loading market data...</div>
+      </div>
+    </div>
+
+    <div class="sidebar">
+      <div class="panel">
+        <div class="panel-header"><span class="panel-title">Conformal Calibration</span><span class="panel-badge" id="calib-n">—</span></div>
+        <div class="calib-body">
+          <div class="calib-labels"><span>Coverage</span><span class="calib-val" id="calib-cov">93%</span></div>
+          <div class="calib-meter"><div class="calib-fill" id="calib-fill" style="width:93%"></div></div>
+          <div class="calib-row"><span class="calib-key">q̂ quantile</span><span class="calib-v" id="calib-qhat">—</span></div>
+          <div class="calib-row"><span class="calib-key">Mean score</span><span class="calib-v" id="calib-mean">—</span></div>
+          <div class="calib-row"><span class="calib-key">Method</span><span class="calib-v">Split conformal</span></div>
+          <div class="calib-row"><span class="calib-key">On-chain signals</span><span class="calib-v">BTC rate · ETH/BTC</span></div>
+          <div class="calib-row"><span class="calib-key">Total sweeps</span><span class="calib-v" id="calib-sweeps">—</span></div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-header"><span class="panel-title">Top Resolved</span><span class="panel-badge">prospective</span></div>
+        <div class="val-body" id="val-mini">
+          <div class="empty">Loading...</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Tab: Signal Consistency -->
+<div class="tab-content" id="tab-consistency">
+  <div class="panel">
+    <div class="panel-header">
+      <span class="panel-title">Signal Consistency — Across All Sweeps</span>
+      <span class="panel-badge">ranked by avg mismatch</span>
+    </div>
+    <div id="consistency-list"><div class="empty">Loading...</div></div>
+  </div>
+</div>
+
+<!-- Tab: Prospective Validation -->
+<div class="tab-content" id="tab-validation">
+  <div class="panel">
+    <div class="panel-header">
+      <span class="panel-title">Prospective Validation — Predictions Made Before Outcomes</span>
+      <span class="panel-badge" id="val-badge">Apr 27, 2026 →</span>
+    </div>
+    <div class="val-body" id="val-full"><div class="empty">Loading...</div></div>
+  </div>
+</div>
+
+<!-- Tab: Architecture -->
+<div class="tab-content" id="tab-architecture">
+  <div class="main-grid">
+    <div class="panel">
+      <div class="panel-header"><span class="panel-title">System Architecture</span><span class="panel-badge">5 layers</span></div>
+      <div>
+        <div class="arch-step"><div class="arch-num">1</div><div><div class="arch-name">Data Ingestion</div><div class="arch-desc">Polymarket CLOB API · BTC perpetual futures funding rate · ETH/BTC ratio from Binance</div></div></div>
+        <div class="arch-step"><div class="arch-num">2</div><div><div class="arch-name">LLM Ensemble</div><div class="arch-desc">4 prompt templates (free reasoning, adversarial, base rate, uncertainty elicitation) × 2 models × 2 temperatures. Ensemble variance σ² = epistemic uncertainty proxy.</div></div></div>
+        <div class="arch-step"><div class="arch-num">3</div><div><div class="arch-name">Conformal Calibration</div><div class="arch-desc">Split conformal prediction (Angelopoulos & Bates 2022). Distribution-free coverage guarantees. No Gaussian assumptions. Valid for heavy-tailed crypto markets.</div></div></div>
+        <div class="arch-step"><div class="arch-num">4</div><div><div class="arch-name">Mispricing Detector</div><div class="arch-desc">Mismatch score = market-implied confidence − model confidence. Market confidence inferred from probability extremity, order book spread, and volume.</div></div></div>
+        <div class="arch-step"><div class="arch-num">5</div><div><div class="arch-name">Kelly Position Sizing</div><div class="arch-desc">Uncertainty-adjusted Kelly criterion. Bet fraction scales down when CI is wide — distinguishes confident 60% from uncertain 60%.</div></div></div>
+      </div>
+    </div>
+    <div class="panel">
+      <div class="panel-header"><span class="panel-title">Research Contribution</span></div>
+      <div style="padding:16px">
+        <div style="font-size:13px;line-height:1.7;color:var(--text2);margin-bottom:16px">
+          Prediction markets price expected value. They don't price uncertainty about that expected value. A market at 60% where every model agrees is very different from 60% where models span 30–85%. This agent identifies that gap.
+        </div>
+        <div style="font-size:11px;color:var(--text3);line-height:1.6;margin-bottom:12px">
+          <strong style="color:var(--purple)">Novel combination:</strong> Conformal prediction intervals applied to LLM ensemble outputs on decentralized prediction markets. Not previously published.
+        </div>
+        <div style="font-size:11px;color:var(--text3);line-height:1.6;margin-bottom:12px">
+          <strong style="color:var(--teal)">Key finding:</strong> Mismatch score identifies overconfident markets. 2/2 prospective hits on MegaETH markets. 7 short-horizon predictions tracked (May 15–31).
+        </div>
+        <div style="font-size:11px;color:var(--text3);line-height:1.6">
+          <strong style="color:var(--amber)">Connection:</strong> Extends LLM uncertainty quantification research (Dalal et al., Columbia) into prediction market domain.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-left">Built by <span>Gouri Menon</span> · Columbia University · 2026</div>
+  <div class="footer-right">
+    <span>conformal prediction</span><span>·</span><span>LLM ensemble</span><span>·</span><span>epistemic uncertainty</span>
+  </div>
+</footer>
+</div>
+
+<script>
+// ── Tab switching ──────────────────────────────────────────────────────────
+function showTab(id) {
+  document.querySelectorAll('.tab').forEach((t,i) => {
+    const ids = ['live','consistency','validation','architecture'];
+    t.classList.toggle('active', ids[i] === id);
+  });
+  document.querySelectorAll('.tab-content').forEach(c => {
+    c.classList.toggle('active', c.id === 'tab-' + id);
+  });
+}
+
+// ── Formatting ─────────────────────────────────────────────────────────────
+const fmt  = n => n != null ? (n * 100).toFixed(1) + '%' : '—';
+const fmtN = n => n != null ? n.toFixed(4) : '—';
+const fmtM = n => n != null ? (n > 0 ? '+' : '') + n.toFixed(3) : '—';
+
+// ── Market card ────────────────────────────────────────────────────────────
+function marketCard(m) {
+  const action  = (m.action || 'PASS').toLowerCase();
+  const mktP    = m.market_prob ?? 0;
+  const modelP  = m.p_hat ?? 0;
+  const ciLo    = m.ci_lower ?? 0;
+  const ciHi    = m.ci_upper ?? 1;
+  const ciW     = m.ci_width ?? 1;
+  const mis     = m.mismatch_score ?? 0;
+  const std     = m.ensemble_std ?? 0;
+  const sigLvl  = std < 0.05 ? 'low' : std < 0.12 ? 'medium' : 'high';
+  const sigLbl  = std < 0.05 ? 'LOW' : std < 0.12 ? 'MEDIUM' : 'HIGH';
+  const kellyHtml = m.kelly_fraction > 0 && m.kelly_direction && m.kelly_direction !== 'PASS'
+    ? `<div class="kelly-info">Kelly ${(m.kelly_fraction*100).toFixed(1)}%<span class="kelly-dir">→ ${m.kelly_direction}</span></div>`
+    : `<div class="kelly-info">${m.n_samples ?? '—'} samples</div>`;
+
+  return `<div class="market-card ${action} fade">
+    <div class="market-top">
+      <div class="market-question">${m.question || '—'}</div>
+      <span class="action-badge ${action}">${m.action || 'PASS'}</span>
+    </div>
+    <div class="prob-row"><span class="prob-label">Market</span><div class="prob-bar-wrap"><div class="prob-bar market" style="width:${mktP*100}%"></div></div><span class="prob-val">${fmt(mktP)}</span></div>
+    <div class="prob-row"><span class="prob-label">Model p̂</span><div class="prob-bar-wrap"><div class="prob-bar model" style="width:${modelP*100}%"></div></div><span class="prob-val">${fmt(modelP)}</span></div>
+    <div class="prob-row"><span class="prob-label">CI [80%]</span><div class="prob-bar-wrap"><div class="prob-bar ci" style="width:${ciW*100}%"></div></div><span class="prob-val">[${fmt(ciLo)}, ${fmt(ciHi)}]</span></div>
+    <div class="market-footer">
+      <div class="mismatch-score"><span class="mis-lbl">mismatch</span><span class="mis-val">${fmtM(mis)}</span></div>
+      <span class="sigma-badge ${sigLvl}">σ=${std.toFixed(3)} ${sigLbl}</span>
+      ${kellyHtml}
+    </div>
+  </div>`;
+}
+
+// ── Validation item ────────────────────────────────────────────────────────
+function valItem(m, mini = false) {
+  const correct = m.agent_correct;
+  const icon    = correct === true ? '✓' : correct === false ? '✗' : '⏳';
+  const cls     = correct === true ? 'correct' : correct === false ? 'wrong' : 'pending';
+  const agentP  = m.agent_p_hat ?? m.p_hat;
+  const mktP    = m.market_prob_at_prediction ?? m.market_prob;
+  const resColor = correct === true ? 'var(--green)' : correct === false ? 'var(--coral)' : 'var(--amber)';
+  const resolved = m.resolved ?? (correct !== null ? (correct ? 'YES' : 'NO') : 'pending');
+  const closesStr = m.closes ? ` · closes ${m.closes}` : '';
+
+  return `<div class="val-item">
+    <div class="val-icon ${cls}">${icon}</div>
+    <div style="flex:1">
+      <div class="val-q">${(m.question || '').slice(0, mini ? 50 : 80)}${closesStr}</div>
+      <div class="val-nums">
+        <span style="color:var(--purple)">agent ${fmt(agentP)}</span>
+        <span style="color:var(--text3)">mkt ${fmt(mktP)}</span>
+        <span style="color:${resColor}">${resolved}</span>
+        ${m.kelly && m.direction ? `<span style="color:var(--teal)">Kelly ${m.direction}</span>` : ''}
+      </div>
+    </div>
+  </div>`;
+}
+
+// ── Signal consistency row ─────────────────────────────────────────────────
+function sigRow(s) {
+  const actionColor = s.action === 'INVESTIGATE' ? 'var(--coral)' : s.action === 'MONITOR' ? 'var(--amber)' : 'var(--text3)';
+  return `<div class="sig-row">
+    <span class="sig-n">${s.n_sweeps}×</span>
+    <span class="sig-q">${(s.question || '').slice(0, 65)}</span>
+    <span style="font-family:'DM Mono',monospace;font-size:10px;color:${actionColor};width:80px;text-align:right;flex-shrink:0">${s.action}</span>
+    <span class="sig-mis" style="color:var(--purple)">${fmtM(s.avg_mismatch)}</span>
+  </div>`;
+}
+
+// ── Load data ──────────────────────────────────────────────────────────────
+async function loadData() {
+  let data;
+  try {
+    const r = await fetch('data.json?t=' + Date.now());
+    if (!r.ok) throw new Error('not found');
+    data = await r.json();
+  } catch(e) {
+    // Fallback: show helpful message
+    document.getElementById('updated-time').textContent = 'Run: python export_dashboard.py';
+    document.getElementById('market-list').innerHTML =
+      '<div class="empty">No data.json found.<br>Run: python export_dashboard.py → git push</div>';
+    return;
+  }
+
+  // Header
+  const gen = new Date(data.generated_at);
+  document.getElementById('updated-time').textContent =
+    'Updated ' + gen.toLocaleDateString('en-US', {month:'short', day:'numeric'}) +
+    ' at ' + gen.toLocaleTimeString('en-US', {hour:'2-digit', minute:'2-digit'});
+
+  // Stats
+  const st = data.stats || {};
+  document.getElementById('s-markets').textContent     = st.n_markets_monitored ?? '—';
+  document.getElementById('s-markets-sub').textContent = `${st.n_sweeps_total ?? '?'} total sweeps`;
+  document.getElementById('s-investigate').textContent = st.n_investigate ?? '—';
+  document.getElementById('s-hitrate').textContent     = st.prospective_hit_rate ?? '—';
+  if (st.fade_roi != null) {
+    document.getElementById('s-roi').textContent = (st.fade_roi > 0 ? '+' : '') + (st.fade_roi * 100).toFixed(1) + '%';
+  }
+
+  // Calibration
+  const calib = data.calibration || {};
+  document.getElementById('calib-n').textContent  = `n=${calib.n_calibration ?? '?'}`;
+  const q20 = calib.quantiles?.['0.2'] ?? calib.quantiles?.['0.20'];
+  document.getElementById('calib-qhat').textContent  = q20?.toFixed(4) ?? '—';
+  document.getElementById('calib-mean').textContent  = calib.mean_score?.toFixed(4) ?? '—';
+  document.getElementById('calib-sweeps').textContent = st.n_sweeps_total ?? '—';
+
+  // Market list
+  const markets = (data.latest_markets || []).filter(m => m.p_hat != null).slice(0, 8);
+  document.getElementById('market-list').innerHTML =
+    markets.length ? markets.map(marketCard).join('') : '<div class="empty">No market data</div>';
+  document.getElementById('market-badge').textContent = `${markets.length} markets · sorted by mismatch ↓`;
+
+  // Validation mini (sidebar)
+  const valMkts = (data.validation?.markets || []).filter(m => m.agent_correct !== null).slice(0, 4);
+  document.getElementById('val-mini').innerHTML =
+    valMkts.length ? valMkts.map(m => valItem(m, true)).join('') : '<div class="empty">No resolved markets yet</div>';
+
+  // Validation full tab
+  const allVal = data.validation?.markets || [];
+  document.getElementById('val-full').innerHTML =
+    allVal.length ? allVal.map(m => valItem(m, false)).join('') : '<div class="empty">No predictions yet</div>';
+  const nRes = allVal.filter(m => m.agent_correct !== null).length;
+  document.getElementById('val-badge').textContent = `${nRes} resolved · ${allVal.length} total`;
+
+  // Signal consistency tab
+  const sigs = data.signal_consistency || [];
+  document.getElementById('consistency-list').innerHTML =
+    sigs.length ? sigs.map(sigRow).join('') : '<div class="empty">No sweep data yet</div>';
+}
+
+loadData();
+</script>
+</body>
+</html>
