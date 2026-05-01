@@ -1,0 +1,62 @@
+{
+  "generated": "2026-05-01T20:07:23.184597",
+  "source": "short_horizon_run",
+  "markets": [
+    {
+      "question": "Barcelona wins La Liga",
+      "market_prob": 0.95,
+      "model_p_hat": 0.62,
+      "direction": "NO",
+      "closes": "2026-05-30",
+      "kelly": 0.05
+    },
+    {
+      "question": "Real Madrid wins La Liga",
+      "market_prob": 0.04,
+      "model_p_hat": 0.46,
+      "direction": "YES",
+      "closes": "2026-05-30",
+      "kelly": 0.042
+    },
+    {
+      "question": "Atletico Madrid wins UCL",
+      "market_prob": 0.09,
+      "model_p_hat": 0.41,
+      "direction": "YES",
+      "closes": "2026-05-31",
+      "kelly": 0.038
+    },
+    {
+      "question": "Man City wins Premier League",
+      "market_prob": 0.57,
+      "model_p_hat": 0.72,
+      "direction": "YES",
+      "closes": "2026-05-27",
+      "kelly": 0.042
+    },
+    {
+      "question": "Ken Paxton wins TX primary",
+      "market_prob": 0.57,
+      "model_p_hat": 0.27,
+      "direction": "NO",
+      "closes": "2026-05-26",
+      "kelly": 0.05
+    },
+    {
+      "question": "Iran peace deal by May 31",
+      "market_prob": 0.09,
+      "model_p_hat": 0.37,
+      "direction": "YES",
+      "closes": "2026-05-31",
+      "kelly": 0.05
+    },
+    {
+      "question": "Hormuz traffic normal by May 15",
+      "market_prob": 0.07,
+      "model_p_hat": 0.31,
+      "direction": "YES",
+      "closes": "2026-05-15",
+      "kelly": 0.038
+    }
+  ]
+}

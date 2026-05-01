@@ -106,33 +106,29 @@ def get_onchain_context() -> str:
 
 PROMPT_TEMPLATES = [
     # T1 — free reasoning with on-chain context
-    """You are a calibrated forecaster. Estimate the probability (0.0 to 1.0) that the answer is YES.
+    """You are a calibrated forecaster. Estimate the probability (0.0 to 1.0) that the answer is YES. Be concise.
 {onchain}
-Think step by step, then end your response with exactly:
+Brief reasoning, then end with exactly:
 PROBABILITY: <number>
 
 Question: {question}""",
 
     # T2 — adversarial (steelman the NO case)
-    """You are a calibrated forecaster. First list the three strongest reasons this would NOT happen.
-Then give your probability it DOES happen.
+    """You are a calibrated forecaster. List 2 reasons this would NOT happen, then give your probability it DOES happen. Be brief.
 End with exactly:
 PROBABILITY: <number>
 
 Question: {question}""",
 
     # T3 — base rate anchoring
-    """You are a calibrated forecaster. Start by estimating the historical base rate:
-how often do events like this actually happen? Then adjust for specific factors.
+    """You are a calibrated forecaster. State the historical base rate for this type of event, then adjust briefly.
 End with exactly:
 PROBABILITY: <number>
 
 Question: {question}""",
 
     # T4 — explicit uncertainty elicitation
-    """You are a calibrated forecaster. Consider: what information would you need to be
-confident? If that information is unavailable, reflect that with a probability closer to 0.5.
-Give your best estimate, acknowledging uncertainty explicitly.
+    """You are a calibrated forecaster. Rate your confidence and give a probability. If uncertain, shade toward 0.5.
 End with exactly:
 PROBABILITY: <number>
 
@@ -184,7 +180,7 @@ def _query_ollama(model: str, prompt: str, temperature: float) -> Optional[float
                 "model":   model,
                 "prompt":  prompt,
                 "stream":  False,
-                "options": {"temperature": temperature},
+                "options": {"temperature": temperature, "num_predict": 200},
             },
             timeout=120,
         )

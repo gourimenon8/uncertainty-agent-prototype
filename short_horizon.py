@@ -40,44 +40,32 @@ ALPHA        = 0.20
 def fetch_short_horizon_markets(days, all_categories, min_volume, min_days=1, limit=500):
     now    = datetime.now(timezone.utc)
     cutoff = now + timedelta(days=days)
-    floor  = now + timedelta(days=min_days)  # skip markets expiring too soon
+    floor  = now + timedelta(days=min_days)
 
-    print(f"  Fetching active markets closing before {cutoff.strftime('%Y-%m-%d')}...")
+    print(f"  Fetching top-volume active markets, filtering to {floor.strftime('%Y-%m-%d')}–{cutoff.strftime('%Y-%m-%d')}...")
 
-    # Paginate: there are thousands of unresolved-but-expired markets sorted first.
-    # We page through until we see end dates beyond the cutoff.
+    # Fetch by volume descending so micro-markets (5-min crypto price) sink to the
+    # bottom and we never need to paginate through 50k+ daily-noise markets.
     raw_list   = []
     offset     = 0
     page_limit = 500
-    max_pages  = 20  # safety cap: 10,000 markets max
+    max_pages  = 10  # 5,000 top-volume markets is plenty
 
     for _ in range(max_pages):
         resp = requests.get(
             f"{GAMMA_BASE}/markets",
             params={"active": "true", "closed": "false", "limit": page_limit,
-                    "order": "endDate", "ascending": "true", "offset": offset},
+                    "order": "volumeNum", "ascending": "false", "offset": offset},
             timeout=12,
         )
         resp.raise_for_status()
         page = resp.json()
         if not isinstance(page, list) or not page:
             break
-
         raw_list.extend(page)
-
-        # Stop once this page's last market is beyond the cutoff
-        last_end = (page[-1].get("endDate") or "")[:19].replace("Z", "")
-        try:
-            last_dt = datetime.fromisoformat(last_end).replace(tzinfo=timezone.utc)
-            if last_dt > cutoff:
-                break
-        except Exception:
-            pass
-
         if len(page) < page_limit:
             break
         offset += page_limit
-        print(f"    ...paged to offset {offset} (last date seen: {last_end[:10]})")
 
     markets        = []
     skipped_date   = 0
@@ -128,9 +116,6 @@ def fetch_short_horizon_markets(days, all_categories, min_volume, min_days=1, li
             resolved=False,
             outcome=None,
         ))
-
-    # Sort by volume descending so highest-liquidity markets go first
-    markets.sort(key=lambda m: m.volume_usd, reverse=True)
 
     cat = "all-category" if all_categories else "crypto"
     print(f"  Found {len(markets)} {cat} markets closing in {min_days}–{days} days")
