@@ -143,4 +143,4 @@ Local inference · [Ollama](https://ollama.com) (llama3.2) ·
 ---
 
 **Gouri Menon** · Columbia University · 2026  
-Research collaboration with Prof. Siddhartha Dalal · LLM Uncertainty Quantification
+LLM Uncertainty Quantification
