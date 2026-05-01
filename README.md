@@ -81,7 +81,7 @@ The combination of **conformal prediction intervals applied to LLM ensemble outp
 3. The mismatch score identifies systematically overconfident markets
 4. Uncertainty-adjusted Kelly criterion produces better position sizing than standard Kelly
 
-Extends LLM uncertainty quantification research (Dalal et al., Columbia University) into the prediction market domain.
+Extends LLM uncertainty quantification research into the prediction market domain.
 
 ---
 
