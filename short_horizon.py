@@ -37,9 +37,10 @@ ALPHA        = 0.20
 
 # ── Fetch markets closing within N days ──────────────────────────────────────
 
-def fetch_short_horizon_markets(days, all_categories, min_volume, limit=500):
+def fetch_short_horizon_markets(days, all_categories, min_volume, min_days=1, limit=500):
     now    = datetime.now(timezone.utc)
     cutoff = now + timedelta(days=days)
+    floor  = now + timedelta(days=min_days)  # skip markets expiring too soon
 
     print(f"  Fetching active markets closing before {cutoff.strftime('%Y-%m-%d')}...")
 
@@ -93,7 +94,7 @@ def fetch_short_horizon_markets(days, all_categories, min_volume, limit=500):
                 end_dt = datetime.fromisoformat(
                     end_date[:19].replace("Z", "")
                 ).replace(tzinfo=timezone.utc)
-                if end_dt > cutoff or end_dt <= now:
+                if end_dt > cutoff or end_dt < floor:
                     skipped_date += 1
                     continue
             except Exception:
@@ -128,8 +129,11 @@ def fetch_short_horizon_markets(days, all_categories, min_volume, limit=500):
             outcome=None,
         ))
 
+    # Sort by volume descending so highest-liquidity markets go first
+    markets.sort(key=lambda m: m.volume_usd, reverse=True)
+
     cat = "all-category" if all_categories else "crypto"
-    print(f"  Found {len(markets)} {cat} markets closing within {days} days")
+    print(f"  Found {len(markets)} {cat} markets closing in {min_days}–{days} days")
     print(f"  Skipped: {skipped_date} wrong date | {skipped_prob} no prob"
           + (f" | {skipped_crypto} non-crypto" if not all_categories else "")
           + (f" | {skipped_volume} low volume" if min_volume > 0 else ""))
@@ -181,8 +185,12 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--find",           action="store_true")
     parser.add_argument("--days",           type=int,   default=14)
+    parser.add_argument("--min-days",       type=int,   default=1,
+                        help="Skip markets expiring within this many days (avoids same-day noise)")
     parser.add_argument("--all-categories", action="store_true")
     parser.add_argument("--min-volume",     type=float, default=0)
+    parser.add_argument("--max-markets",    type=int,   default=50,
+                        help="Cap ensemble runs (top-N by volume); 0 = unlimited")
     parser.add_argument("--top",            type=int,   default=10)
     args = parser.parse_args()
 
@@ -203,11 +211,16 @@ def main():
         days=args.days,
         all_categories=args.all_categories,
         min_volume=args.min_volume,
+        min_days=args.min_days,
     )
 
     if not markets:
         print("\nNo markets found. Try --days 30 or --all-categories.")
         return
+
+    if args.max_markets and len(markets) > args.max_markets:
+        print(f"  Capping to top {args.max_markets} by volume (use --max-markets 0 to run all)")
+        markets = markets[: args.max_markets]
 
     print(f"\n[3/3] Running ensemble on {len(markets)} markets...")
     ensemble_results = []
