@@ -1,0 +1,432 @@
+{
+  "generated_at": "2026-05-01T22:08:29.191221",
+  "stats": {
+    "n_markets_monitored": 10,
+    "n_investigate": 9,
+    "n_consistent_signals": 15,
+    "prospective_hit_rate": "2/2",
+    "fade_roi": 0.1365,
+    "n_sweeps_total": 169,
+    "last_sweep": "2026-05-01T20:08:30.018187"
+  },
+  "latest_markets": [
+    {
+      "id": "556108",
+      "question": "Will MegaETH perform an airdrop by June 30? ",
+      "market_prob": 0.0995,
+      "volume_usd": 1513971.4701839967,
+      "p_hat": 0.6135714285714285,
+      "ensemble_std": 0.34488810098030664,
+      "ensemble_n": 14,
+      "ci_lower": 0.0,
+      "ci_upper": 1.0,
+      "ci_width": 1.0,
+      "mismatch_score": 0.6770764742701438,
+      "action": "INVESTIGATE"
+    },
+    {
+      "id": "558941",
+      "question": "Will Netherlands win the 2026 FIFA World Cup?",
+      "market_prob": 0.033,
+      "volume_usd": 16234380.991663903,
+      "p_hat": 0.19642857142857142,
+      "ensemble_std": 0.24631459380410067,
+      "ensemble_n": 14,
+      "ci_lower": 0.0,
+      "ci_upper": 0.8219159928122192,
+      "ci_width": 0.8219159928122192,
+      "mismatch_score": 0.6205159928122191,
+      "action": "INVESTIGATE"
+    },
+    {
+      "id": "553828",
+      "question": "Will the Colorado Avalanche win the 2026 NHL Stanley Cup?",
+      "market_prob": 0.3115,
+      "volume_usd": 13935783.263738055,
+      "p_hat": 0.5328958333333333,
+      "ensemble_std": 0.35785712967665834,
+      "ensemble_n": 15,
+      "ci_lower": 0.0,
+      "ci_upper": 1.0,
+      "ci_width": 1.0,
+      "mismatch_score": 0.5758,
+      "action": "INVESTIGATE"
+    },
+    {
+      "id": "540816",
+      "question": "Russia-Ukraine Ceasefire before GTA VI?",
+      "market_prob": 0.565,
+      "volume_usd": 1638522.8090790526,
+      "p_hat": 0.5225,
+      "ensemble_std": 0.3924198431951847,
+      "ensemble_n": 16,
+      "ci_lower": 0.0,
+      "ci_upper": 1.0,
+      "ci_width": 1.0,
+      "mismatch_score": 0.4115377076135597,
+      "action": "INVESTIGATE"
+    },
+    {
+      "id": "540844",
+      "question": "Will bitcoin hit $1m before GTA VI?",
+      "market_prob": 0.4965,
+      "volume_usd": 4072745.4471045365,
+      "p_hat": 0.41125,
+      "ensemble_std": 0.38621021909490344,
+      "ensemble_n": 16,
+      "ci_lower": 0.0,
+      "ci_upper": 1.0,
+      "ci_width": 1.0,
+      "mismatch_score": 0.3952906055713988,
+      "action": "INVESTIGATE"
+    },
+    {
+      "id": "540818",
+      "question": "New Playboi Carti Album before GTA VI?",
+      "market_prob": 0.54,
+      "volume_usd": 731998.8864399478,
+      "p_hat": 0.406875,
+      "ensemble_std": 0.27368397225023366,
+      "ensemble_n": 16,
+      "ci_lower": 0.0,
+      "ci_upper": 1.0,
+      "ci_width": 1.0,
+      "mismatch_score": 0.3623758683653676,
+      "action": "INVESTIGATE"
+    },
+    {
+      "id": "540820",
+      "question": "Trump out as President before GTA VI?",
+      "market_prob": 0.52,
+      "volume_usd": 629271.7489650093,
+      "p_hat": 0.4412307692307692,
+      "ensemble_std": 0.35041835802512633,
+      "ensemble_n": 13,
+      "ci_lower": 0.0,
+      "ci_upper": 1.0,
+      "ci_width": 1.0,
+      "mismatch_score": 0.3409031862181099,
+      "action": "INVESTIGATE"
+    },
+    {
+      "id": "540843",
+      "question": "Will China invades Taiwan before GTA VI?",
+      "market_prob": 0.51,
+      "volume_usd": 1807067.3336360613,
+      "p_hat": 0.31583333333333335,
+      "ensemble_std": 0.3312362061164574,
+      "ensemble_n": 12,
+      "ci_lower": 0.0,
+      "ci_upper": 0.9413207547169811,
+      "ci_width": 0.9413207547169811,
+      "mismatch_score": 0.3124019493194241,
+      "action": "INVESTIGATE"
+    },
+    {
+      "id": "540817",
+      "question": "New Rihanna Album before GTA VI?",
+      "market_prob": 0.535,
+      "volume_usd": 705494.9580110012,
+      "p_hat": 0.7013333333333334,
+      "ensemble_std": 0.3043462939920029,
+      "ensemble_n": 15,
+      "ci_lower": 0.0758459119496856,
+      "ci_upper": 1.0,
+      "ci_width": 0.9241540880503144,
+      "mismatch_score": 0.28119524757629233,
+      "action": "INVESTIGATE"
+    },
+    {
+      "id": "540819",
+      "question": "Will Jesus Christ return before GTA VI?",
+      "market_prob": 0.48,
+      "volume_usd": 11167619.734568954,
+      "p_hat": 0.08,
+      "ensemble_std": 0.10539967224375467,
+      "ensemble_n": 12,
+      "ci_lower": 0.0,
+      "ci_upper": 0.7054874213836477,
+      "ci_width": 0.7054874213836477,
+      "mismatch_score": 0.14648742138364773,
+      "action": "MONITOR"
+    }
+  ],
+  "signal_consistency": [
+    {
+      "id": "566146",
+      "question": "Will Atletico Madrid win the 2025\u201326 Champions League?",
+      "n_sweeps": 1,
+      "avg_mismatch": 0.7506,
+      "avg_p_hat": 0.41,
+      "avg_market_prob": 0.093,
+      "avg_std": 0.4124,
+      "action": "INVESTIGATE"
+    },
+    {
+      "id": "1808970",
+      "question": "US obtains Iranian enriched uranium by May 31?",
+      "n_sweeps": 1,
+      "avg_mismatch": 0.7407,
+      "avg_p_hat": 0.3725,
+      "avg_market_prob": 0.09,
+      "avg_std": 0.4435,
+      "action": "INVESTIGATE"
+    },
+    {
+      "id": "566227",
+      "question": "Will Real Madrid win the 2025\u201326 La Liga?",
+      "n_sweeps": 1,
+      "avg_mismatch": 0.7385,
+      "avg_p_hat": 0.465,
+      "avg_market_prob": 0.0445,
+      "avg_std": 0.3652,
+      "action": "INVESTIGATE"
+    },
+    {
+      "id": "540881",
+      "question": "GTA VI released before June 2026?",
+      "n_sweeps": 55,
+      "avg_mismatch": 0.735,
+      "avg_p_hat": 0.414,
+      "avg_market_prob": 0.0204,
+      "avg_std": 0.1534,
+      "action": "INVESTIGATE"
+    },
+    {
+      "id": "566228",
+      "question": "Will Barcelona win the 2025\u201326 La Liga?",
+      "n_sweeps": 1,
+      "avg_mismatch": 0.7332,
+      "avg_p_hat": 0.62,
+      "avg_market_prob": 0.9465,
+      "avg_std": 0.4574,
+      "action": "INVESTIGATE"
+    },
+    {
+      "id": "2054133",
+      "question": "Strait of Hormuz traffic returns to normal by May 15?",
+      "n_sweeps": 1,
+      "avg_mismatch": 0.6736,
+      "avg_p_hat": 0.3125,
+      "avg_market_prob": 0.07,
+      "avg_std": 0.459,
+      "action": "INVESTIGATE"
+    },
+    {
+      "id": "1809560",
+      "question": "Strait of Hormuz traffic returns to normal by end of May?",
+      "n_sweeps": 1,
+      "avg_mismatch": 0.6277,
+      "avg_p_hat": 0.5225,
+      "avg_market_prob": 0.21,
+      "avg_std": 0.4095,
+      "action": "INVESTIGATE"
+    },
+    {
+      "id": "1707932",
+      "question": "Will the Iranian regime fall by May 31?",
+      "n_sweeps": 1,
+      "avg_mismatch": 0.6221,
+      "avg_p_hat": 0.2,
+      "avg_market_prob": 0.0355,
+      "avg_std": 0.15,
+      "action": "INVESTIGATE"
+    },
+    {
+      "id": "556063",
+      "question": "MegaETH market cap (FDV) >$6B one day after launch?",
+      "n_sweeps": 61,
+      "avg_mismatch": 0.586,
+      "avg_p_hat": 0.2214,
+      "avg_market_prob": 0.02,
+      "avg_std": 0.2072,
+      "action": "INVESTIGATE"
+    },
+    {
+      "id": "566136",
+      "question": "Will PSG win the 2025\u201326 Champions League?",
+      "n_sweeps": 1,
+      "avg_mismatch": 0.5676,
+      "avg_p_hat": 0.485,
+      "avg_market_prob": 0.31,
+      "avg_std": 0.3944,
+      "action": "INVESTIGATE"
+    },
+    {
+      "id": "558941",
+      "question": "Will Netherlands win the 2026 FIFA World Cup?",
+      "n_sweeps": 124,
+      "avg_mismatch": 0.5594,
+      "avg_p_hat": 0.1668,
+      "avg_market_prob": 0.0336,
+      "avg_std": 0.1446,
+      "action": "INVESTIGATE"
+    },
+    {
+      "id": "1962237",
+      "question": "US x Iran permanent peace deal by June 30, 2026?",
+      "n_sweeps": 1,
+      "avg_mismatch": 0.5373,
+      "avg_p_hat": 0.52,
+      "avg_market_prob": 0.31,
+      "avg_std": 0.5427,
+      "action": "INVESTIGATE"
+    },
+    {
+      "id": "566142",
+      "question": "Will Bayern Munich win the 2025\u201326 Champions League?",
+      "n_sweeps": 1,
+      "avg_mismatch": 0.5183,
+      "avg_p_hat": 0.4875,
+      "avg_market_prob": 0.36,
+      "avg_std": 0.405,
+      "action": "INVESTIGATE"
+    },
+    {
+      "id": "566737",
+      "question": "Will Lens win the 2025\u201326 French Ligue 1?",
+      "n_sweeps": 1,
+      "avg_mismatch": 0.5012,
+      "avg_p_hat": 0.0675,
+      "avg_market_prob": 0.021,
+      "avg_std": 0.0903,
+      "action": "INVESTIGATE"
+    },
+    {
+      "id": "566187",
+      "question": "Will Arsenal win the 2025\u201326 English Premier League?",
+      "n_sweeps": 1,
+      "avg_mismatch": 0.481,
+      "avg_p_hat": 0.435,
+      "avg_market_prob": 0.43,
+      "avg_std": 0.3961,
+      "action": "INVESTIGATE"
+    }
+  ],
+  "calibration": {
+    "n_calibration": 318,
+    "quantiles": {
+      "0.05": 0.7825366876310272,
+      "0.1": 0.713372641509434,
+      "0.2": 0.6254874213836478
+    },
+    "mean_score": 0.4651549295742692,
+    "score_std": 0.18509866695302457
+  },
+  "validation": {
+    "markets": [
+      {
+        "question": "MegaETH market cap (FDV) >2B one day after launch",
+        "agent_p_hat": 0.15,
+        "agent_signal": "NO / INVESTIGATE",
+        "market_prob_at_prediction": 0.26,
+        "actual_fdv_at_launch": 1600000000,
+        "resolved": "NO",
+        "agent_correct": true,
+        "notes": "FDV was 1.6B at launch, well below 2B threshold"
+      },
+      {
+        "question": "MegaETH market cap (FDV) >6B one day after launch",
+        "agent_p_hat": 0.073,
+        "agent_signal": "INVESTIGATE",
+        "market_prob_at_prediction": 0.013,
+        "actual_fdv_at_launch": 1600000000,
+        "resolved": "NO",
+        "agent_correct": true,
+        "notes": "Both agent and market agreed NO, resolved NO"
+      },
+      {
+        "question": "Will MegaETH perform an airdrop by June 30",
+        "agent_p_hat": 0.22,
+        "agent_signal": "NO / INVESTIGATE",
+        "market_prob_at_prediction": 0.625,
+        "actual_fdv_at_launch": null,
+        "resolved": "PENDING",
+        "agent_correct": null,
+        "notes": "Airdrop appears to be happening - may resolve YES against agent prediction"
+      },
+      {
+        "question": "Barcelona wins La Liga",
+        "agent_p_hat": 0.62,
+        "market_prob_at_prediction": 0.95,
+        "agent_correct": null,
+        "resolved": "PENDING",
+        "closes": "2026-05-30",
+        "direction": "NO",
+        "kelly": 0.05,
+        "notes": "Closes 2026-05-30 \u00b7 Kelly NO"
+      },
+      {
+        "question": "Real Madrid wins La Liga",
+        "agent_p_hat": 0.46,
+        "market_prob_at_prediction": 0.04,
+        "agent_correct": null,
+        "resolved": "PENDING",
+        "closes": "2026-05-30",
+        "direction": "YES",
+        "kelly": 0.042,
+        "notes": "Closes 2026-05-30 \u00b7 Kelly YES"
+      },
+      {
+        "question": "Atletico Madrid wins UCL",
+        "agent_p_hat": 0.41,
+        "market_prob_at_prediction": 0.09,
+        "agent_correct": null,
+        "resolved": "PENDING",
+        "closes": "2026-05-31",
+        "direction": "YES",
+        "kelly": 0.038,
+        "notes": "Closes 2026-05-31 \u00b7 Kelly YES"
+      },
+      {
+        "question": "Man City wins Premier League",
+        "agent_p_hat": 0.72,
+        "market_prob_at_prediction": 0.57,
+        "agent_correct": null,
+        "resolved": "PENDING",
+        "closes": "2026-05-27",
+        "direction": "YES",
+        "kelly": 0.042,
+        "notes": "Closes 2026-05-27 \u00b7 Kelly YES"
+      },
+      {
+        "question": "Ken Paxton wins TX primary",
+        "agent_p_hat": 0.27,
+        "market_prob_at_prediction": 0.57,
+        "agent_correct": null,
+        "resolved": "PENDING",
+        "closes": "2026-05-26",
+        "direction": "NO",
+        "kelly": 0.05,
+        "notes": "Closes 2026-05-26 \u00b7 Kelly NO"
+      },
+      {
+        "question": "Iran peace deal by May 31",
+        "agent_p_hat": 0.37,
+        "market_prob_at_prediction": 0.09,
+        "agent_correct": null,
+        "resolved": "PENDING",
+        "closes": "2026-05-31",
+        "direction": "YES",
+        "kelly": 0.05,
+        "notes": "Closes 2026-05-31 \u00b7 Kelly YES"
+      },
+      {
+        "question": "Hormuz traffic normal by May 15",
+        "agent_p_hat": 0.31,
+        "market_prob_at_prediction": 0.07,
+        "agent_correct": null,
+        "resolved": "PENDING",
+        "closes": "2026-05-15",
+        "direction": "YES",
+        "kelly": 0.038,
+        "notes": "Closes 2026-05-15 \u00b7 Kelly YES"
+      }
+    ],
+    "summary": {
+      "n_correct": 2,
+      "n_wrong": 0,
+      "n_pending": 1
+    }
+  }
+}
