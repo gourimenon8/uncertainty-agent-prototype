@@ -1,0 +1,77 @@
+{
+  "market_only": {
+    "name": "Market price alone",
+    "brier": 0.033884500000000005,
+    "log_loss": 0.15709504794016688,
+    "ece": 0.1365,
+    "n": 2,
+    "note": "Baseline: crowd wisdom with no model"
+  },
+  "random_fade": {
+    "name": "Random fade strategy",
+    "roi_mean": 0.13650000000000007,
+    "roi_std": 5.551115123125783e-17,
+    "roi_95_ci": [
+      0.1365,
+      0.1365
+    ],
+    "n_sim": 1000,
+    "note": "Random selection of same N markets, 1000 simulations"
+  },
+  "heuristic": {
+    "name": "Price extremity heuristic (no LLM)",
+    "n_flagged": 1,
+    "roi": 0.013000000000000012,
+    "win_rate": 1.0,
+    "brier": 0.033884500000000005,
+    "note": "Flags markets >80% or <20% \u2014 no model needed"
+  },
+  "no_conformal": {
+    "name": "LLM mean, no conformal intervals",
+    "threshold": 0.15,
+    "n_flagged": 0,
+    "roi": null,
+    "win_rate": null,
+    "brier": 0.0139145,
+    "note": "Flag where |p_hat - market| > 0.15, no uncertainty wrapper"
+  },
+  "disagreement_only": {
+    "name": "Ensemble disagreement only (no conformal)",
+    "threshold": 0.1,
+    "n_flagged": 2,
+    "roi": 0.1365,
+    "win_rate": 1.0,
+    "note": "Flag where \u03c3 > 0.1 without calibration wrapper"
+  },
+  "ablation_no_conformal": {
+    "name": "Ablation A: No conformal (raw mismatch > 0.25)",
+    "n_flagged": 0,
+    "roi": null,
+    "win_rate": null
+  },
+  "full_system": {
+    "name": "Full system (conformal + ensemble + mismatch)",
+    "n_flagged": 2,
+    "roi": 0.1365,
+    "win_rate": 1.0,
+    "brier": 0.0139145,
+    "log_loss": 0.11916020869607283,
+    "ece": 0.11149999999999999
+  },
+  "domain_breakdown": {
+    "crypto": {
+      "n": 2,
+      "n_invest": 2,
+      "brier": 0.0139145
+    }
+  },
+  "weight_sensitivity": {
+    "n_trials": 50,
+    "roi_mean": 0.1063,
+    "roi_std": 0.0531,
+    "roi_min": 0.013,
+    "roi_max": 0.1365,
+    "pct_positive": 1.0,
+    "note": "ROI stability across 50 random weight combinations"
+  }
+}
